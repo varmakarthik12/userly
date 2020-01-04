@@ -1,0 +1,23 @@
+{
+  "name": "userly",
+  "version": "1.0.0",
+  "description": "A framework that makes persisting user data as simple as calling a method. The data stays even after page load / reloads, even after opening a new instance in a new tab or in a new browser or even in a complete different machine. Where you want to store this data is completely up to you.",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "author": "karthiksundari2315@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
+    "rebase": "node version/rebase"
+  },
+  "devDependencies": {
+    "child_process": "^1.0.2",
+    "typescript": "^3.7.3"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "repository": "git@github.com:varmakarthik12/userly.git"
+}
