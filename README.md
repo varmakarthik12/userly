@@ -59,7 +59,3 @@ persistence.recall("column_sort_order"); // out:- {field: "title", order: "ASC"}
 ```
 
 This module internally subscribes to the broadcaster subscription. So every remember call will initiate a broadcast even to other instance of the app and merges this information to their store.
-
-### Writing a custom subscription / module
-
-TODO
