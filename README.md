@@ -46,7 +46,7 @@ import { persistence } from "userly";
 You can store something to the persistence using the `remember` api.
 
 ```
-persistence.remember("categories_list_column_sort_order", {
+persistence.remember("column_sort_order", {
     field: "title",
     order: "ASC"
 } );
@@ -55,7 +55,7 @@ persistence.remember("categories_list_column_sort_order", {
 You can retrieve some information from the persistence store using the `recall` api.
 
 ```
-persistence.recall("categories_list_column_sort_order"); // out:- {field: "title", order: "ASC"}
+persistence.recall("column_sort_order"); // out:- {field: "title", order: "ASC"}
 ```
 
 This module internally subscribes to the broadcaster subscription. So every remember call will initiate a broadcast even to other instance of the app and merges this information to their store.
