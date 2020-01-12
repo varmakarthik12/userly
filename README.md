@@ -16,9 +16,9 @@ This has two main component's called subscriptions and modules. A subscription i
 2. Initialise userly in the root file of the app.
 
 ```
-    import { init } from "userly";
+import { init } from "userly";
 
-    init("some_user_identifier", [subscriptions]).initialStore(initialStore).outlet(outlet);
+init("some_user_identifier", [subscriptions]).initialStore(initialStore).outlet(outlet);
 ```
 
 `subscriptions` are the middleware you want to subscribe to, `initialStore` is the initial data of the user - This can be a object containing the information that you already know about the user intial store should have a schema that can be consumed by userly more about the schema below, `outlet` is a function that gets three arguments `module_name`, `component_name`, `data`. You can decide where to put this data here. This can be an http call or a webSock stream that feed to a persistence in the backend.
