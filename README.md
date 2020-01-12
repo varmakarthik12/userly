@@ -47,13 +47,13 @@ This is just a simple module containing module object pattren. `outlet` will als
 Outlet is what decides where to put the information that userly knows. This can be a browser store or a REST call or even a websocket message. This is generally a event listner which will be triggered when ever userly modules want to post some data to the store. Where you store this info is completly up to the consumer. Here is a simple snippet on the usage.
 
 ```
-    const ws = new WebSocket("ws://localhost:3000/put");
-    const user = "some-unique-user-identifier";
-    const initialStore = await (await fetch(`http://localhost:3000/get/${user}`)).json();
-    const outlet = (__USER_IDENTIFIER, moduleName, componentName, currentComponentValue) => {
-      ws.send(JSON.stringify(__USER_IDENTIFIER, moduleName, componentName, currentComponentValue))
-    }
-    init(user, [broadcastMiddleware, loggerMiddleware()]).initialStore(initialStore).outlet(outlet);
+const ws = new WebSocket("ws://localhost:3000/put");
+const user = "some-unique-user-identifier";
+const initialStore = await (await fetch(`http://localhost:3000/get/${user}`)).json();
+const outlet = (__USER_IDENTIFIER, moduleName, componentName, currentComponentValue) => {
+    ws.send(JSON.stringify(__USER_IDENTIFIER, moduleName, componentName, currentComponentValue))
+}
+init(user, [broadcastMiddleware, loggerMiddleware()]).initialStore(initialStore).outlet(outlet);
 ```
 A outlet will be provided with all the necessary info that a store should know to persist userly data. Think of simple persistance call `persistence.remember("my_favorites", "I love starwars");` now the outlet will get below arguents `"some-unique-user-identifier", "__PERSISTANCE", "my_favorites", "I love starwars"`.
 
