@@ -21,7 +21,41 @@ This has two main component's called subscriptions and modules. A subscription i
     init("some_user_identifier", [subscriptions]).initialStore(initialStore).outlet(outlet);
 ```
 
-`subscriptions` are the middleware you want to subscribe to, `initialStore` is the initial data of the user - This can be a object containing the information that you already know about the user <TODO write above how the scheema should be>, `outlet` is a function that gets three arguments `module_name`, `component_name`, `data`. You can decide where to put this data here. This can be an http call or a webSock stream that feed to a persistence in the backend.
+`subscriptions` are the middleware you want to subscribe to, `initialStore` is the initial data of the user - This can be a object containing the information that you already know about the user intial store should have a schema that can be consumed by userly more about the schema below, `outlet` is a function that gets three arguments `module_name`, `component_name`, `data`. You can decide where to put this data here. This can be an http call or a webSock stream that feed to a persistence in the backend.
+
+### Intial Store schema 
+
+Userly expects the intial store schema in a simple consumable pattren described below.
+
+```
+{
+    "ModuleName": {
+        "componentName": "componentValue",
+        "componentName2": "some component value"
+    },
+    "__PERSISTANCE"":{
+        "column_sort_order": {
+            field: "title",
+            order: "ASC"
+        }
+    }
+}
+```
+This is just a simple module containing module object pattren. `outlet` will also follow the same pattrent when triggering an event to a store, More about outlet below.
+
+### Outlet in Userly
+Outlet is what decides where to put the information that userly knows. This can be a browser store or a REST call or even a websocket message. This is generally a event listner which will be triggered when ever userly modules want to post some data to the store. Where you store this info is completly up to the consumer. Here is a simple snippet on the usage.
+
+```
+    const ws = new WebSocket("ws://localhost:3000/put");
+    const user = "some-unique-user-identifier";
+    const initialStore = await (await fetch(`http://localhost:3000/get/${user}`)).json();
+    const outlet = (__USER_IDENTIFIER, moduleName, componentName, currentComponentValue) => {
+      ws.send(JSON.stringify(__USER_IDENTIFIER, moduleName, componentName, currentComponentValue))
+    }
+    init(user, [broadcastMiddleware, loggerMiddleware()]).initialStore(initialStore).outlet(outlet);
+```
+A outlet will be provided with all the necessary info that a store should know to persist userly data. Think of simple persistance call `persistence.remember("my_favorites", "I love starwars");` now the outlet will get below arguents `"some-unique-user-identifier", "__PERSISTANCE", "my_favorites", "I love starwars"`.
 
 #### Subscribing to a subscription
 
